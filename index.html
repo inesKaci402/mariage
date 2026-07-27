@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Mariage de Cherif &amp; Sonia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== OVERLAY ENVELOPPE BÉBÉ ROSE ===== -->
+<div id="envelope-overlay">
+  <div class="envelope-container" id="envelopeContainer">
+    
+    <!-- Carte d'invitation intérieure -->
+    <div class="invitation-card" id="invitationCard">
+      <div class="card-border"></div>
+      <div class="inv-header">Invitation Nuptiale</div>
+      <div class="inv-names">Cherif &amp; Sonia</div>
+      <p class="inv-text">Ont l'honneur de vous convier à célébrer leur mariage</p>
+      <div class="inv-date">04 Septembre 2026</div>
+    </div>
+
+    <!-- Enveloppe Bébé Rose & Blanc -->
+    <div class="envelope">
+      <!-- Rabat supérieur triangulaire -->
+      <div class="envelope-flap" id="envelopeFlap"></div>
+      
+      <!-- Poches latérales et fond -->
+      <div class="envelope-pocket"></div>
+
+      <!-- Sceau de cire rose tendre -->
+      <div class="seal" id="seal">
+        <span>CH&amp;S</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="tap-instruction" id="tapInstruction">Cliquez pour briser le sceau</div>
+</div>
+
+<div id="sparkles"></div>
+
+<!-- ===== CONTENU PRINCIPAL ===== -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="sub-title">Le plus beau jour de notre vie</div>
+    <div class="main-names">Cherif <span class="amp">&amp;</span> Sonia</div>
+    <p class="quote">
+      « Et ils vécurent heureux... »
+      <span class="date-badge">04 Septembre 2026</span>
+    </p>
+    <div class="pink-line"></div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section reveal">
+    <div class="sub-title">Il nous reste</div>
+    <div class="countdown" id="countdown">
+      <div class="cd-box"><span class="cd-num" id="cd-days">00</span><span class="cd-lbl">Jours</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-lbl">Heures</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-lbl">Minutes</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-lbl">Secondes</span></div>
+    </div>
+  </section>
+  <!-- ===== GALERIE ===== -->
+  <section class="reveal">
+    <div class="sub-title">Notre Galerie</div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="mariage1.jpg" alt="Photo 1" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="mariage2.jpg" alt="Photo 2" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="mariage7.jpg" alt="Photo 3" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="mariage9.jpg" alt="Photo 4" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILS -->
+  <section class="reveal">
+    <div class="sub-title">Informations Pratiques</div>
+    <div class="info-list">
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div>
+          <div class="info-title">Vendredi 04 Septembre 2026</div>
+          <div class="info-desc">Cérémonie et réception</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <div class="info-title">À partir de 14h00</div>
+          <div class="info-desc">Accueil des convives</div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="info-title">La Roche D'Or</div>
+          <div class="info-desc">Ath Mansour, M'Chedallah, Bouira</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section style="text-align:center;" class="reveal">
+    <div class="sub-title">Accès &amp; Localisation</div>
+    <div class="map-frame">
+      <div class="pin-icon">
+        <svg viewBox="0 0 24 24" fill="#d9779c" stroke="#ffffff" stroke-width="1.5"><path d="M12 2C7.5 2 4 5.5 4 10c0 5.25 8 12 8 12s8-6.75 8-12c0-4.5-3.5-8-8-8z"/><circle cx="12" cy="10" r="3" fill="#fff"/></svg>
+      </div>
+    </div>
+    <a href="https://maps.google.com/?q=Salle+Polyvalente+Ath+Mansour" target="_blank" rel="noopener" class="map-link-btn">
+      Itinéraire Google Maps
+    </a>
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp-section reveal">
+    <div class="sub-title">RSVP</div>
+    <p class="rsvp-text">Merci de bien vouloir confirmer votre présence avant le 04 Septembre 2026.</p>
+    <button class="pink-btn" id="rsvpBtn">Confirmer ma présence</button>
+    <div class="rsvp-status" id="rsvpSub">Votre réponse est attendue avec impatience</div>
+    <a href="#" class="ics-trigger" id="calLink">Ajouter à mon calendrier (ICS)</a>
+  </section>
+
+  <footer>
+    <div class="footer-names">Cherif &amp; Sonia</div>
+    <p>04 . 09 . 2026</p>
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
