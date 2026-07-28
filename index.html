@@ -134,11 +134,21 @@
     </a>
   </section>
 
-  <!-- RSVP -->
+<!-- RSVP -->
   <section class="rsvp-section reveal">
     <div class="sub-title">RSVP</div>
     <p class="rsvp-text">Merci de bien vouloir confirmer votre présence avant le 04 Septembre 2026.</p>
-    <button class="pink-btn" id="rsvpBtn">Confirmer ma présence</button>
+    
+    <form action="https://api.web3forms.com/submit" method="POST" class="rsvp-form" id="rsvpForm">
+      <!-- Votre clé d'accès unique Web3Forms -->
+      <input type="hidden" name="access_key" value="c8990208-d434-4c58-bb6c-54eaa68141ab">
+      
+      <input type="text" name="Nom_et_Prenom" id="guestName" placeholder="Votre Nom et Prénom" class="rsvp-input" required>
+      <input type="number" name="Nombre_de_personnes" id="guestCount" placeholder="Nombre de personnes" class="rsvp-input" min="1" value="1" required>
+      
+      <button type="submit" class="pink-btn" id="rsvpBtn">Confirmer ma présence</button>
+    </form>
+
     <div class="rsvp-status" id="rsvpSub">Votre réponse est attendue avec impatience</div>
     <a href="#" class="ics-trigger" id="calLink">Ajouter directement à mon calendrier</a>
   </section>
