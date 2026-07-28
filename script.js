@@ -34,7 +34,8 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// RSVP Interactif avec affichage de la carte de remerciement
+// RSVP Interactif avec envoi réel vers Web3Forms et affichage de la carte de remerciement
+const rsvpForm = document.getElementById('rsvpForm');
 const rsvpBtn = document.getElementById('rsvpBtn');
 const rsvpSub = document.getElementById('rsvpSub');
 const guestNameInput = document.getElementById('guestName');
@@ -42,8 +43,8 @@ const guestCountInput = document.getElementById('guestCount');
 const thankYouCard = document.getElementById('thankYouCard');
 const thankMsg = document.getElementById('thankMsg');
 
-rsvpBtn.addEventListener('click', (e) => {
-  e.preventDefault(); // Empêche le rechargement de la page si le bouton est de type submit
+rsvpForm.addEventListener('submit', async (e) => {
+  e.preventDefault(); // Empêche le rechargement classique de la page
 
   const name = guestNameInput.value.trim();
   const count = guestCountInput.value;
@@ -60,57 +61,55 @@ rsvpBtn.addEventListener('click', (e) => {
     return;
   }
 
-  // Désactive les champs et le bouton
-  guestNameInput.disabled = true;
-  guestCountInput.disabled = true;
-  rsvpBtn.style.display = 'none'; // Cache le bouton de confirmation
-  rsvpSub.style.display = 'none'; // Cache l'ancien texte de statut
+  // Indication visuelle de chargement
+  rsvpBtn.textContent = "Envoi en cours...";
+  rsvpBtn.disabled = true;
 
-  // Personnalise et affiche la carte de remerciement
-  thankMsg.innerHTML = `Merci infiniment <strong>${name}</strong> !<br>Votre venue pour <strong>${count} personne(s)</strong> est enregistrée avec joie.`;
-  thankYouCard.style.display = 'block';
-});
-// ICS Generator (Mis à jour au 04 septembre 2026 de 14h00 à 18h00)
-document.getElementById('calLink').addEventListener('click', (e) => {
-  e.preventDefault();
-  const icsContent = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'BEGIN:VEVENT',
-    'SUMMARY:Mariage de Cherif et Sonia',
-    'DTSTART:20260904T140000Z',
-    'DTEND:20260904T180000Z',
-    'LOCATION:La Roche DOr, Ath Mansour, MChedallah, Bouira',
-    'END:VEVENT',
-    'END:VCALENDAR'
-  ].join('\n');
-  const blob = new Blob([icsContent], { type: 'text/calendar' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'mariage-cherif-sonia.ics';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  try {
+    const formData = new FormData(rsvpForm);
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      // Désactive les champs
+      guestNameInput.disabled = true;
+      guestCountInput.disabled = true;
+      rsvpBtn.style.display = 'none';
+      rsvpSub.style.display = 'none';
+
+      // Personnalise et affiche la carte de remerciement
+      thankMsg.innerHTML = `Merci infiniment <strong>${name}</strong> !<br>Votre venue pour <strong>${count} personne(s)</strong> est enregistrée avec joie.`;
+      thankYouCard.style.display = 'block';
+    } else {
+      alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+      rsvpBtn.textContent = "Confirmer ma présence";
+      rsvpBtn.disabled = false;
+    }
+  } catch (error) {
+    alert("Erreur de connexion. Vérifiez votre réseau.");
+    rsvpBtn.textContent = "Confirmer ma présence";
+    rsvpBtn.disabled = false;
+  }
 });
 
-document.body.style.overflow = 'hidden';
 // Ajout direct au calendrier (Google Calendar / Web)
 document.getElementById('calLink').addEventListener('click', (e) => {
   e.preventDefault();
 
-  // Informations de l'événement (Date : 4 septembre 2026 de 14:00 à 18:00)
   const title = encodeURIComponent("Mariage de Cherif & Sonia");
   const details = encodeURIComponent("Cérémonie et réception du mariage de Cherif & Sonia.");
   const location = encodeURIComponent("La Roche D'Or, Ath Mansour, M'Chedallah, Bouira");
   
-  // Format des dates UTC (20260904T130000Z pour 14h heure locale en Algérie UTC+1)
   const startDate = "20260904T130000Z";
   const endDate = "20260904T170000Z";
 
-  // Lien direct vers Google Calendar
   const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
 
-  // Ouvre le calendrier dans un nouvel onglet
   window.open(googleUrl, '_blank');
 });
+
+document.body.style.overflow = 'hidden';
