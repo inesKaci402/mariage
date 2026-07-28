@@ -39,6 +39,7 @@ html, body {
   animation: floatEnvelope 3s ease-in-out infinite;
 }
 
+
 @keyframes floatEnvelope {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -344,4 +345,31 @@ footer p {
 .gallery-item:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(217,119,156,0.2);
+}
+/* ================= RSVP FORMULAIRE ================= */
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.rsvp-input, .rsvp-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-pink);
+  border-radius: 30px;
+  background: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: var(--dark-text);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rsvp-input:focus, .rsvp-select:focus {
+  border-color: var(--pink-accent);
+  box-shadow: 0 0 8px rgba(217, 119, 156, 0.2);
 }
