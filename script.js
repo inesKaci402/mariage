@@ -34,15 +34,35 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// RSVP Interactive
+// RSVP Interactive sans limite de personnes
 const rsvpBtn = document.getElementById('rsvpBtn');
 const rsvpSub = document.getElementById('rsvpSub');
+const guestNameInput = document.getElementById('guestName');
+const guestCountInput = document.getElementById('guestCount');
+
 rsvpBtn.addEventListener('click', () => {
+  const name = guestNameInput.value.trim();
+  const count = guestCountInput.value;
+
+  if (name === '') {
+    alert('Veuillez entrer votre nom et prénom.');
+    guestNameInput.focus();
+    return;
+  }
+
+  if (count <= 0 || count === '') {
+    alert('Veuillez entrer un nombre valide de personnes.');
+    guestCountInput.focus();
+    return;
+  }
+
+  // Désactive les champs après validation
+  guestNameInput.disabled = true;
+  guestCountInput.disabled = true;
   rsvpBtn.classList.add('confirmed');
   rsvpBtn.textContent = 'Présence confirmée ✓';
-  rsvpSub.textContent = 'Merci pour votre chaleureuse réponse.';
+  rsvpSub.textContent = `Merci ${name} ! Votre venue pour ${count} personne(s) est bien enregistrée.`;
 });
-
 // ICS Generator (Mis à jour au 04 septembre 2026 de 14h00 à 18h00)
 document.getElementById('calLink').addEventListener('click', (e) => {
   e.preventDefault();
