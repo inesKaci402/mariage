@@ -34,13 +34,17 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// RSVP Interactive sans limite de personnes
+// RSVP Interactif avec affichage de la carte de remerciement
 const rsvpBtn = document.getElementById('rsvpBtn');
 const rsvpSub = document.getElementById('rsvpSub');
 const guestNameInput = document.getElementById('guestName');
 const guestCountInput = document.getElementById('guestCount');
+const thankYouCard = document.getElementById('thankYouCard');
+const thankMsg = document.getElementById('thankMsg');
 
-rsvpBtn.addEventListener('click', () => {
+rsvpBtn.addEventListener('click', (e) => {
+  e.preventDefault(); // Empêche le rechargement de la page si le bouton est de type submit
+
   const name = guestNameInput.value.trim();
   const count = guestCountInput.value;
 
@@ -56,12 +60,15 @@ rsvpBtn.addEventListener('click', () => {
     return;
   }
 
-  // Désactive les champs après validation
+  // Désactive les champs et le bouton
   guestNameInput.disabled = true;
   guestCountInput.disabled = true;
-  rsvpBtn.classList.add('confirmed');
-  rsvpBtn.textContent = 'Présence confirmée ✓';
-  rsvpSub.textContent = `Merci ${name} ! Votre venue pour ${count} personne(s) est bien enregistrée.`;
+  rsvpBtn.style.display = 'none'; // Cache le bouton de confirmation
+  rsvpSub.style.display = 'none'; // Cache l'ancien texte de statut
+
+  // Personnalise et affiche la carte de remerciement
+  thankMsg.innerHTML = `Merci infiniment <strong>${name}</strong> !<br>Votre venue pour <strong>${count} personne(s)</strong> est enregistrée avec joie.`;
+  thankYouCard.style.display = 'block';
 });
 // ICS Generator (Mis à jour au 04 septembre 2026 de 14h00 à 18h00)
 document.getElementById('calLink').addEventListener('click', (e) => {
