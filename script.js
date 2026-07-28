@@ -143,3 +143,28 @@ musicToggleBtn.addEventListener('click', () => {
     });
   }
 });
+function createFallingFlowers() {
+  const container = document.getElementById('fallingFlowersContainer');
+  const flowersSymbols = ['🌸', '💮', '🌷', '✿', '❀'];
+  const numberOfFlowers = 15;
+
+  for (let i = 0; i < numberOfFlowers; i++) {
+    const flower = document.createElement('div');
+    flower.classList.add('falling-flower');
+    flower.innerHTML = flowersSymbols[Math.floor(Math.random() * flowersSymbols.length)];
+
+    flower.style.left = Math.random() * 100 + 'vw';
+    const size = Math.random() * 14 + 12;
+    flower.style.fontSize = size + 'px';
+
+    const fallDuration = Math.random() * 7 + 6;
+    const swayDuration = Math.random() * 3 + 2;
+
+    flower.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+    flower.style.animationDelay = `${Math.random() * 8}s, ${Math.random() * 2}s`;
+    flower.style.opacity = Math.random() * 0.6 + 0.4;
+
+    container.appendChild(flower);
+  }
+}
+window.addEventListener('DOMContentLoaded', createFallingFlowers);
