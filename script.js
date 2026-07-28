@@ -81,8 +81,8 @@ rsvpForm.addEventListener('submit', async (e) => {
       rsvpBtn.style.display = 'none';
       rsvpSub.style.display = 'none';
 
-      // Personnalise et affiche la carte de remerciement
-      thankMsg.innerHTML = `Merci infiniment <strong>${name}</strong> !<br>Votre venue pour <strong>${count} personne(s)</strong> est enregistrée avec joie.`;
+      // Personnalise et affiche la carte de remerciement (Message chaleureux)
+      thankMsg.innerHTML = `C'est un immense bonheur de vous compter parmi nous, <strong>${name}</strong> !<br>Votre présence pour <strong>${count} personne(s)</strong> illuminera notre grand jour. Hâte de le célébrer à vos côtés ! ✨`;
       thankYouCard.style.display = 'block';
     } else {
       alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
