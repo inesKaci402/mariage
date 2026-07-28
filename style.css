@@ -373,3 +373,49 @@ footer p {
   border-color: var(--pink-accent);
   box-shadow: 0 0 8px rgba(217, 119, 156, 0.2);
 }
+/* ================= CARTE DE REMERCIEMENT ================= */
+.thank-you-card {
+  margin-top: 20px;
+  background: var(--white);
+  border: 1px solid var(--border-pink);
+  border-radius: 8px;
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(217, 119, 156, 0.15);
+  animation: fadeInCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInCard {
+  0% { opacity: 0; transform: translateY(15px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.thank-border {
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed var(--border-pink);
+  pointer-events: none;
+}
+
+.thank-subtitle {
+  font-size: 9.5px;
+  letter-spacing: 2px;
+  color: var(--pink-accent);
+  text-transform: uppercase;
+}
+
+.thank-names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 32px;
+  color: var(--dark-text);
+  margin: 6px 0;
+}
+
+.thank-msg {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted-text);
+  line-height: 1.4;
+}
