@@ -6,7 +6,7 @@ envelopeContainer.addEventListener('click', () => {
   if (envelopeContainer.classList.contains('open')) return;
   seal.classList.add('break');
   envelopeContainer.classList.add('open');
-  setTimeout(() => envelopeOverlay.classList.add('opened'), 900);
+  setTimeout(() => envelopeOverlay.classList.add('opened'), 3000);
   document.body.style.overflow = 'auto';
 });
 
@@ -53,7 +53,7 @@ document.getElementById('calLink').addEventListener('click', (e) => {
     'SUMMARY:Mariage de Cherif et Sonia',
     'DTSTART:20260904T140000Z',
     'DTEND:20260904T180000Z',
-    'LOCATION:Domaine des Roses, 12 avenue des Lilas, Lyon',
+    'LOCATION:La Roche DOr, Ath Mansour, MChedallah, Bouira',
     'END:VEVENT',
     'END:VCALENDAR'
   ].join('\n');
@@ -68,3 +68,22 @@ document.getElementById('calLink').addEventListener('click', (e) => {
 });
 
 document.body.style.overflow = 'hidden';
+// Ajout direct au calendrier (Google Calendar / Web)
+document.getElementById('calLink').addEventListener('click', (e) => {
+  e.preventDefault();
+
+  // Informations de l'événement (Date : 4 septembre 2026 de 14:00 à 18:00)
+  const title = encodeURIComponent("Mariage de Cherif & Sonia");
+  const details = encodeURIComponent("Cérémonie et réception du mariage de Cherif & Sonia.");
+  const location = encodeURIComponent("La Roche D'Or, Ath Mansour, M'Chedallah, Bouira");
+  
+  // Format des dates UTC (20260904T130000Z pour 14h heure locale en Algérie UTC+1)
+  const startDate = "20260904T130000Z";
+  const endDate = "20260904T170000Z";
+
+  // Lien direct vers Google Calendar
+  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}&location=${location}`;
+
+  // Ouvre le calendrier dans un nouvel onglet
+  window.open(googleUrl, '_blank');
+});
