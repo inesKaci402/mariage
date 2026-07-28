@@ -34,13 +34,30 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// RSVP Interactive sans limite de personnes
-const rsvpBtn = document.getElementById('rsvpBtn');
-const rsvpSub = document.getElementById('rsvpSub');
+// ================= RSVP AVEC ENVOI DISCRET ET STYLE DU SITE =================
+const rsvpForm = document.getElementById('rsvpForm');
 const guestNameInput = document.getElementById('guestName');
 const guestCountInput = document.getElementById('guestCount');
+const rsvpBtn = document.getElementById('rsvpBtn');
+const rsvpSub = document.getElementById('rsvpSub');
 
-rsvpBtn.addEventListener('click', () => {
+// Vérifier si l'invité a déjà confirmé
+const savedName = localStorage.getItem('wedding_guest_name');
+const savedCount = localStorage.getItem('wedding_guest_count');
+
+if (savedName) {
+  guestNameInput.value = savedName;
+  guestNameInput.disabled = true; // Bloque le nom pour qu'il ne puisse pas le changer
+  if (savedCount) {
+    guestCountInput.value = savedCount;
+  }
+  rsvpBtn.textContent = 'Mettre à jour ma présence';
+  rsvpSub.textContent = `Heureux de vous revoir, ${savedName} ! Vous pouvez modifier le nombre de personnes si besoin.`;
+}
+
+rsvpForm.addEventListener('submit', async (e) => {
+  e.preventDefault(); // Empêche le changement de page vers Web3Forms
+
   const name = guestNameInput.value.trim();
   const count = guestCountInput.value;
 
@@ -56,38 +73,46 @@ rsvpBtn.addEventListener('click', () => {
     return;
   }
 
-  // Désactive les champs après validation
-  guestNameInput.disabled = true;
-  guestCountInput.disabled = true;
-  rsvpBtn.classList.add('confirmed');
-  rsvpBtn.textContent = 'Présence confirmée ✓';
-  rsvpSub.textContent = `Merci ${name} ! Votre venue pour ${count} personne(s) est bien enregistrée.`;
-});
-// ICS Generator (Mis à jour au 04 septembre 2026 de 14h00 à 18h00)
-document.getElementById('calLink').addEventListener('click', (e) => {
-  e.preventDefault();
-  const icsContent = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'BEGIN:VEVENT',
-    'SUMMARY:Mariage de Cherif et Sonia',
-    'DTSTART:20260904T140000Z',
-    'DTEND:20260904T180000Z',
-    'LOCATION:La Roche DOr, Ath Mansour, MChedallah, Bouira',
-    'END:VEVENT',
-    'END:VCALENDAR'
-  ].join('\n');
-  const blob = new Blob([icsContent], { type: 'text/calendar' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'mariage-cherif-sonia.ics';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+  // Changement du texte du bouton pendant l'envoi
+  rsvpBtn.textContent = 'Envoi en cours...';
+  rsvpBtn.disabled = true;
+
+  const formData = new FormData(rsvpForm);
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      // Sauvegarde locale sur l'appareil
+      localStorage.setItem('wedding_guest_name', name);
+      localStorage.setItem('wedding_guest_count', count);
+
+      // Verrouille le nom et met à jour l'interface avec le design du site
+      guestNameInput.disabled = true;
+      rsvpBtn.classList.add('confirmed');
+      rsvpBtn.textContent = 'Présence confirmée ✓';
+      rsvpSub.style.color = 'var(--pink-accent)';
+      rsvpSub.style.fontWeight = '600';
+      rsvpSub.textContent = `Merci ${name} ! Votre venue pour ${count} personne(s) a bien été enregistrée.`;
+    } else {
+      alert('Une erreur est survenue. Veuillez réessayer.');
+      rsvpBtn.textContent = 'Confirmer ma présence';
+      rsvpBtn.disabled = false;
+    }
+  } catch (error) {
+    alert('Erreur de connexion. Vérifiez votre internet.');
+    rsvpBtn.textContent = 'Confirmer ma présence';
+    rsvpBtn.disabled = false;
+  }
 });
 
 document.body.style.overflow = 'hidden';
+
 // Ajout direct au calendrier (Google Calendar / Web)
 document.getElementById('calLink').addEventListener('click', (e) => {
   e.preventDefault();
