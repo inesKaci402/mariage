@@ -113,3 +113,33 @@ document.getElementById('calLink').addEventListener('click', (e) => {
 });
 
 document.body.style.overflow = 'hidden';
+// ===== GESTION DE LA MUSIQUE DE FOND =====
+const weddingSong = document.getElementById('weddingSong');
+const musicToggleBtn = document.getElementById('musicToggleBtn');
+let isPlaying = false;
+
+// Lance la musique dès l'ouverture de l'enveloppe
+envelopeContainer.addEventListener('click', () => {
+  if (!isPlaying) {
+    weddingSong.play().then(() => {
+      isPlaying = true;
+      musicToggleBtn.classList.add('playing');
+    }).catch(error => {
+      console.log("Lecture automatique bloquée par le navigateur :", error);
+    });
+  }
+});
+
+// Bouton interactif pour couper / relancer la musique manuellement
+musicToggleBtn.addEventListener('click', () => {
+  if (isPlaying) {
+    weddingSong.pause();
+    isPlaying = false;
+    musicToggleBtn.classList.remove('playing');
+  } else {
+    weddingSong.play().then(() => {
+      isPlaying = true;
+      musicToggleBtn.classList.add('playing');
+    });
+  }
+});
