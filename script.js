@@ -34,34 +34,49 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// RSVP Interactive sans limite de personnes
-const rsvpBtn = document.getElementById('rsvpBtn');
-const rsvpSub = document.getElementById('rsvpSub');
+// ================= RSVP GESTION DES PREFERENCES =================
+const rsvpForm = document.getElementById('rsvpForm');
 const guestNameInput = document.getElementById('guestName');
 const guestCountInput = document.getElementById('guestCount');
+const rsvpBtn = document.getElementById('rsvpBtn');
+const rsvpSub = document.getElementById('rsvpSub');
 
-rsvpBtn.addEventListener('click', () => {
+// Vérifier si l'invité a déjà confirmé sa présence lors d'une visite précédente
+const savedName = localStorage.getItem('wedding_guest_name');
+const savedCount = localStorage.getItem('wedding_guest_count');
+
+if (savedName) {
+  guestNameInput.value = savedName;
+  guestNameInput.disabled = true; // Bloque le champ du nom pour qu'il ne soit pas modifiable
+  if (savedCount) {
+    guestCountInput.value = savedCount;
+  }
+  rsvpBtn.textContent = 'Mettre à jour ma présence';
+  rsvpSub.textContent = `Heureux de vous revoir, ${savedName} ! Vous pouvez modifier le nombre de personnes si besoin.`;
+}
+
+// Enregistrement lors de la soumission
+rsvpForm.addEventListener('submit', (e) => {
   const name = guestNameInput.value.trim();
   const count = guestCountInput.value;
 
   if (name === '') {
     alert('Veuillez entrer votre nom et prénom.');
     guestNameInput.focus();
+    e.preventDefault();
     return;
   }
 
   if (count <= 0 || count === '') {
     alert('Veuillez entrer un nombre valide de personnes.');
     guestCountInput.focus();
+    e.preventDefault();
     return;
   }
 
-  // Désactive les champs après validation
-  guestNameInput.disabled = true;
-  guestCountInput.disabled = true;
-  rsvpBtn.classList.add('confirmed');
-  rsvpBtn.textContent = 'Présence confirmée ✓';
-  rsvpSub.textContent = `Merci ${name} ! Votre venue pour ${count} personne(s) est bien enregistrée.`;
+  // Sauvegarde le nom sur l'appareil de l'invité
+  localStorage.setItem('wedding_guest_name', name);
+  localStorage.setItem('wedding_guest_count', count);
 });
 // ICS Generator (Mis à jour au 04 septembre 2026 de 14h00 à 18h00)
 document.getElementById('calLink').addEventListener('click', (e) => {
