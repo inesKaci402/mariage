@@ -68,6 +68,7 @@
       <div class="cd-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-lbl">Secondes</span></div>
     </div>
   </section>
+
   <!-- ===== GALERIE ===== -->
   <section class="reveal">
     <div class="sub-title">Notre Galerie</div>
@@ -139,7 +140,7 @@
     <div class="sub-title">RSVP</div>
     <p class="rsvp-text">Merci de bien vouloir confirmer votre présence avant le 04 Septembre 2026.</p>
     
-    <form class="rsvp-form" id="rsvpForm">
+    <form class="rsvp-form" id="rsvpForm" method="POST">
       <!-- Votre clé d'accès unique Web3Forms -->
       <input type="hidden" name="access_key" value="c8990208-d434-4c58-bb6c-54eaa68141ab">
       
@@ -151,13 +152,14 @@
 
     <div class="rsvp-status" id="rsvpSub">Votre réponse est attendue avec impatience</div>
     <a href="#" class="ics-trigger" id="calLink">Ajouter directement à mon calendrier</a>
+    
     <!-- Carte de remerciement dynamique (initialement cachée) -->
-<div class="thank-you-card" id="thankYouCard" style="display: none;">
-  <div class="thank-border"></div>
-  <div class="thank-subtitle">Avec toute notre affection</div>
-  <div class="thank-names">Cherif &amp; Sonia</div>
-  <p class="thank-msg" id="thankMsg">Votre présence nous comble de bonheur.</p>
-</div>
+    <div class="thank-you-card" id="thankYouCard" style="display: none;">
+      <div class="thank-border"></div>
+      <div class="thank-subtitle">Avec toute notre affection</div>
+      <div class="thank-names">Cherif &amp; Sonia</div>
+      <p class="thank-msg" id="thankMsg">Votre présence nous comble de bonheur.</p>
+    </div>
   </section>
 
   <footer>
